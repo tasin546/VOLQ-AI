@@ -146,6 +146,22 @@ export const ModelsSettingsSection: React.FC = () => {
     });
   };
 
+  const selectAll = () => {
+    setSelectedIds(new Set(models.map((m) => m.id)));
+  };
+
+  const deselectAll = () => {
+    setSelectedIds(new Set());
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedIds.size === models.length && models.length > 0) {
+      deselectAll();
+    } else {
+      selectAll();
+    }
+  };
+
   if (editingModel) {
     return (
       <div className="space-y-5">
@@ -347,9 +363,59 @@ export const ModelsSettingsSection: React.FC = () => {
         </Select>
       </div>
 
+      {models.length > 0 && (
+        <div className="flex items-center justify-between px-1 py-0.5 text-xs">
+          <label className="flex items-center gap-2 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={models.length > 0 && selectedIds.size === models.length}
+              ref={(el) => {
+                if (el) {
+                  el.indeterminate = selectedIds.size > 0 && selectedIds.size < models.length;
+                }
+              }}
+              onChange={toggleSelectAll}
+              aria-label="Select all models"
+              className="w-4 h-4 accent-[var(--accent)] rounded cursor-pointer"
+            />
+            <span className="font-medium text-[var(--text-2)] hover:text-[var(--text)] transition-colors">
+              {selectedIds.size === models.length
+                ? 'Deselect all'
+                : `Select all (${models.length})`}
+            </span>
+          </label>
+          {selectedIds.size > 0 && (
+            <span className="font-mono text-[11px] text-[var(--text-muted)]">
+              {selectedIds.size} of {models.length} selected
+            </span>
+          )}
+        </div>
+      )}
+
       {selectedIds.size > 0 && (
         <div className="p-3 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] flex flex-wrap items-center justify-between gap-2">
-          <span className="text-xs font-medium">{selectedIds.size} selected</span>
+          <div className="flex items-center gap-2.5">
+            <span className="text-xs font-medium">{selectedIds.size} selected</span>
+            {selectedIds.size < models.length ? (
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={selectAll}
+                className="h-7 px-2 text-xs text-[var(--accent)] hover:text-[var(--accent)]"
+              >
+                Select all ({models.length})
+              </Button>
+            ) : (
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={deselectAll}
+                className="h-7 px-2 text-xs text-[var(--text-muted)]"
+              >
+                Clear
+              </Button>
+            )}
+          </div>
           <div className="flex flex-wrap gap-1.5">
             <Button size="sm" variant="secondary" onClick={() => void runBulk('show')}>
               Show
