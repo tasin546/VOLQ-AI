@@ -1,0 +1,407 @@
+@import "tailwindcss";
+@import "./tokens.css";
+@import "./glass.css";
+
+@theme {
+  --font-sans: 'Outfit Variable', Outfit, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: 1.56;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background-color 180ms ease, color 180ms ease;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.025em;
+  }
+
+  code,
+  pre,
+  kbd {
+    font-family: var(--font-mono);
+  }
+
+  ::selection {
+    background: var(--accent-glow);
+    color: var(--text);
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+/* Mobile 16px+ input baseline to prevent iOS Safari zoom on focus */
+@media (max-width: 767px) {
+  input:not([type='checkbox']):not([type='radio']):not([type='file']),
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* Flat Sidebar Helpers */
+.sidebar-row {
+  height: 40px;
+  padding-inline: 12px;
+  border-radius: var(--radius-pill);
+  transition: background-color 140ms ease, color 140ms ease, transform 120ms ease;
+}
+
+.sidebar-row:active:not(:disabled) {
+  transform: scale(0.985);
+}
+
+@media (max-width: 768px) {
+  .sidebar-row {
+    min-height: 44px;
+  }
+}
+
+.sidebar-title-fade {
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 calc(100% - 24px), transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 calc(100% - 24px), transparent 100%);
+}
+
+.sidebar-scroll-mask {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0px,
+    #000 14px,
+    #000 calc(100% - 16px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0px,
+    #000 14px,
+    #000 calc(100% - 16px),
+    transparent 100%
+  );
+}
+
+@keyframes volq-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.volq-shimmer-text {
+  background: linear-gradient(
+    90deg,
+    var(--text-muted) 25%,
+    var(--text) 50%,
+    var(--text-muted) 75%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: volq-shimmer 1.6s linear infinite;
+}
+
+/* Markdown & Syntax Highlighting */
+.volq-markdown {
+  color: var(--text);
+  font-size: var(--text-base);
+  line-height: 1.68;
+  overflow-wrap: anywhere;
+  max-width: 75ch;
+}
+
+.volq-markdown > *:first-child {
+  margin-top: 0;
+}
+
+.volq-markdown > *:last-child {
+  margin-bottom: 0;
+}
+
+.volq-markdown p {
+  margin: 0.75em 0;
+}
+
+.volq-markdown h1,
+.volq-markdown h2,
+.volq-markdown h3,
+.volq-markdown h4 {
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 1.3em 0 0.5em;
+  letter-spacing: -0.02em;
+}
+
+.volq-markdown h1 {
+  font-size: 1.5em;
+}
+
+.volq-markdown h2 {
+  font-size: 1.28em;
+}
+
+.volq-markdown h3 {
+  font-size: 1.12em;
+}
+
+.volq-markdown ul,
+.volq-markdown ol {
+  margin: 0.65em 0;
+  padding-left: 1.5em;
+}
+
+.volq-markdown ul {
+  list-style-type: disc;
+}
+
+.volq-markdown ol {
+  list-style-type: decimal;
+}
+
+.volq-markdown li {
+  margin: 0.28em 0;
+}
+
+.volq-markdown blockquote {
+  margin: 0.9em 0;
+  padding: 0.2em 1em;
+  border-left: 2px solid var(--border-strong);
+  color: var(--text-muted);
+}
+
+.volq-markdown a {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.volq-markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.9em 0;
+  font-size: 13px;
+  display: block;
+  overflow-x: auto;
+}
+
+.volq-markdown th,
+.volq-markdown td {
+  border: 1px solid var(--border);
+  padding: 0.45em 0.75em;
+  text-align: left;
+}
+
+.volq-markdown th {
+  background: var(--surface-hover);
+  font-weight: 600;
+}
+
+.volq-markdown :not(pre) > code {
+  background: var(--surface-hover);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.12em 0.4em;
+  font-size: 0.87em;
+}
+
+.volq-markdown mark {
+  background: var(--accent-subtle);
+  color: var(--text);
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius-xs);
+}
+
+.volq-markdown kbd {
+  background: var(--surface-hover);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-bottom-width: 2px;
+  border-radius: var(--radius-xs);
+  padding: 0.1em 0.4em;
+  font-size: 0.82em;
+  font-family: var(--font-mono);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.volq-markdown details {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.6em 0.9em;
+  margin: 0.75em 0;
+  background: var(--surface);
+}
+
+.volq-markdown summary {
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--text);
+  user-select: none;
+}
+
+.volq-markdown hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 1.5em 0;
+}
+
+.volq-markdown abbr {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+.volq-markdown del,
+.volq-markdown s {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.volq-markdown ins,
+.volq-markdown u {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.volq-markdown sub,
+.volq-markdown sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.volq-markdown sup {
+  top: -0.5em;
+}
+
+.volq-markdown sub {
+  bottom: -0.25em;
+}
+
+.hljs {
+  color: var(--text);
+  background: transparent;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-section,
+.hljs-link {
+  color: var(--hljs-keyword);
+  font-weight: 600;
+}
+
+.hljs-string,
+.hljs-title.class_,
+.hljs-attr,
+.hljs-attribute {
+  color: var(--hljs-string);
+}
+
+.hljs-number,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-variable,
+.hljs-template-variable {
+  color: var(--hljs-number);
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-meta {
+  color: var(--hljs-comment);
+  font-style: italic;
+}
+
+.hljs-title,
+.hljs-title.function_,
+.hljs-built_in {
+  color: var(--hljs-title);
+}
+
+/* Thin auto-hiding scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: var(--radius-pill);
+}
+
+:hover::-webkit-scrollbar-thumb,
+:focus-within::-webkit-scrollbar-thumb {
+  background: var(--border);
+}
+
+@keyframes volq-caret-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.15;
+  }
+}
+
+.volq-caret {
+  display: inline-block;
+  width: 7px;
+  height: 1.05em;
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  border-radius: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
+  animation: volq-caret-blink 1s infinite;
+}
+
+[data-theme='amoled'] .volq-caret {
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+[data-reduce-motion='true'] *,
+[data-reduce-motion='true'] *::before,
+[data-reduce-motion='true'] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}

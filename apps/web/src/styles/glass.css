@@ -1,0 +1,291 @@
+@layer components {
+  .liquid-glass {
+    background: var(--glass-fill);
+    backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+    border: 1px solid var(--border);
+    box-shadow:
+      inset 0 1px 0 var(--glass-highlight),
+      var(--shadow);
+  }
+
+  .liquid-glass-strong {
+    background: var(--glass-strong);
+    backdrop-filter: blur(var(--glass-blur-strong)) saturate(160%);
+    -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(160%);
+    border: 1px solid var(--glass-border);
+    box-shadow:
+      inset 0 1px 0 var(--glass-highlight),
+      var(--shadow);
+  }
+
+  .liquid-hero-refract {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Redesigned Liquid-Glass Composer Capsule (Part B3) */
+  .volq-composer-glass {
+    position: relative;
+    border-radius: 28px;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--text) 10%, transparent) 0%,
+      color-mix(in srgb, var(--text) 3%, transparent) 100%
+    );
+    backdrop-filter: blur(28px) saturate(170%);
+    -webkit-backdrop-filter: blur(28px) saturate(170%);
+    border: 1px solid var(--glass-border);
+    box-shadow:
+      inset 0 1px 0 var(--glass-highlight),
+      var(--shadow);
+    transition:
+      border-color 200ms ease,
+      box-shadow 200ms ease,
+      transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .volq-composer-glass:focus-within {
+    border-color: var(--border-strong);
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 0 var(--glass-highlight),
+      0 0 0 1px color-mix(in srgb, var(--text) 16%, transparent),
+      0 14px 40px color-mix(in srgb, var(--text) 12%, transparent),
+      var(--shadow);
+  }
+
+  .volq-composer-sheen {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 200ms ease;
+    background: radial-gradient(
+      260px circle at var(--mx, 50%) var(--my, 50%),
+      color-mix(in srgb, var(--text) 11%, transparent),
+      transparent 70%
+    );
+  }
+
+  .volq-composer-glass:hover .volq-composer-sheen {
+    opacity: 1;
+  }
+
+  @supports (backdrop-filter: blur(20px)) {
+    .liquid-hero-refract-layer {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0.3;
+      filter: url(#volq-liquid-refract);
+    }
+  }
+
+  .liquid-interactive {
+    transition:
+      transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 180ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .liquid-interactive:hover:not(:disabled) {
+    transform: translateY(-1px);
+    background: var(--surface-hover);
+  }
+
+  .liquid-interactive:active:not(:disabled) {
+    transform: scale(0.985);
+  }
+}
+
+[data-theme='frost'] .volq-composer-glass,
+[data-theme='light'] .volq-composer-glass {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--glass-solid) 92%, transparent) 0%,
+    color-mix(in srgb, var(--glass-solid) 76%, transparent) 100%
+  );
+  border-color: var(--border);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    var(--shadow);
+}
+
+[data-theme='frost'] .volq-composer-glass:focus-within,
+[data-theme='light'] .volq-composer-glass:focus-within {
+  border-color: var(--border-strong);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    0 12px 32px color-mix(in srgb, var(--text) 10%, transparent);
+}
+
+[data-theme='amoled'] .liquid-glass {
+  background: var(--glass-fill);
+  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border: 1px solid var(--border);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme='amoled'] .liquid-glass-strong {
+  background: var(--glass-strong);
+  backdrop-filter: blur(var(--glass-blur-strong)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    0 12px 36px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme='amoled'] .volq-composer-glass {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.09) 0%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 12px 36px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme='amoled'] .volq-composer-glass:focus-within {
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 16px 40px rgba(0, 0, 0, 0.85);
+}
+
+/* Explicit Layer Z-Index Utilities (Purge-Safe) */
+.volq-settings-overlay {
+  z-index: var(--z-settings-overlay);
+}
+.volq-settings-content {
+  z-index: var(--z-settings-content);
+}
+.volq-dialog-overlay {
+  z-index: var(--z-dialog-overlay);
+}
+.volq-dialog-content {
+  z-index: var(--z-dialog-content);
+}
+.volq-confirm-overlay {
+  z-index: var(--z-confirm-overlay);
+}
+.volq-confirm-content {
+  z-index: var(--z-confirm-content);
+}
+
+/* Fallback when backdrop-filter is completely unsupported in the browser */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .liquid-glass,
+  .liquid-glass-strong,
+  .volq-composer-glass {
+    background: var(--glass-solid) !important;
+    border: 1px solid var(--border) !important;
+  }
+}
+
+/* Solid surface fallback when Reduce Transparency is active */
+[data-reduce-transparency='true'] .liquid-glass,
+[data-reduce-transparency='true'] .liquid-glass-strong,
+[data-reduce-transparency='true'] .volq-composer-glass {
+  background: var(--glass-solid);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid var(--border);
+}
+
+[data-reduce-transparency='true'] .liquid-hero-refract-layer,
+[data-reduce-transparency='true'] .volq-composer-sheen {
+  display: none;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .liquid-glass,
+  .liquid-glass-strong,
+  .volq-composer-glass {
+    background: var(--glass-solid);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: 1px solid var(--border);
+  }
+
+  .liquid-hero-refract-layer,
+  .volq-composer-sheen {
+    display: none;
+  }
+}
+
+@media (hover: none) {
+  .volq-composer-sheen {
+    display: none;
+  }
+}
+
+@keyframes volq-bloom-float-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(28px, -18px, 0) scale(1.06);
+  }
+}
+
+@keyframes volq-bloom-float-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-24px, 20px, 0) scale(1.05);
+  }
+}
+
+.obsidian-bloom-a {
+  animation: volq-bloom-float-a 26s ease-in-out infinite;
+}
+
+.obsidian-bloom-b {
+  animation: volq-bloom-float-b 32s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .obsidian-bloom-a,
+  .obsidian-bloom-b {
+    animation: none;
+  }
+
+  .liquid-interactive:hover:not(:disabled),
+  .liquid-interactive:active:not(:disabled),
+  .volq-composer-glass:focus-within {
+    transform: none;
+  }
+
+  .volq-composer-sheen {
+    display: none;
+  }
+}
+
+[data-reduce-motion='true'] .obsidian-bloom-a,
+[data-reduce-motion='true'] .obsidian-bloom-b {
+  animation: none;
+}
+
+[data-reduce-motion='true'] .liquid-interactive:hover:not(:disabled),
+[data-reduce-motion='true'] .liquid-interactive:active:not(:disabled),
+[data-reduce-motion='true'] .volq-composer-glass:focus-within {
+  transform: none;
+}
+
+[data-reduce-motion='true'] .volq-composer-sheen {
+  display: none;
+}

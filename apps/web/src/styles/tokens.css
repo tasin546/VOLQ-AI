@@ -1,0 +1,285 @@
+:root,
+[data-theme='dark'],
+[data-theme='obsidian'] {
+  color-scheme: dark;
+
+  /* Semantic Surface & Text Tokens (Obsidian) */
+  --bg: #050506;
+  --surface: #0A0A0C;
+  --surface-sidebar: #09090B;
+  --surface-raised: #111114;
+  --surface-hover: rgba(255, 255, 255, 0.06);
+  --surface-active: rgba(255, 255, 255, 0.11);
+
+  --border: rgba(255, 255, 255, 0.10);
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.22);
+
+  --text: #FFFFFF;
+  --text-muted: rgba(255, 255, 255, 0.64);
+  --text-subtle: rgba(255, 255, 255, 0.42);
+
+  --accent: #FFFFFF;
+  --accent-ink: #050506;
+  --accent-soft: rgba(255, 255, 255, 0.10);
+  --accent-glow: rgba(255, 255, 255, 0.30);
+
+  --glass-fill: rgba(255, 255, 255, 0.055);
+  --glass-strong: rgba(255, 255, 255, 0.095);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-highlight: rgba(255, 255, 255, 0.12);
+  --glass-solid: #111114;
+  --glass-blur: 24px;
+  --glass-blur-strong: 30px;
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.50);
+  --shadow-sm: 0 8px 24px rgba(0, 0, 0, 0.35);
+
+  /* Explicit Layer Z-Index System */
+  --z-base: 0;
+  --z-sticky: 10;
+  --z-header: 20;
+  --z-popover: 30;
+  --z-toast: 40;
+  --z-settings-overlay: 50;
+  --z-settings-content: 51;
+  --z-dialog-overlay: 60;
+  --z-dialog-content: 61;
+  --z-confirm-overlay: 70;
+  --z-confirm-content: 71;
+  --z-tooltip: 80;
+  --z-max: 9999;
+  --scrim-bg: rgba(0, 0, 0, 0.72);
+  --focus-ring: #FFFFFF;
+
+  /* Wallpaper Scrims & Responsive Focal Points (Obsidian) */
+  --wallpaper-focal-desktop: 54% 55%;
+  --wallpaper-focal-mobile: 54% 30%;
+  --wallpaper-scrim-left: linear-gradient(90deg, rgba(5, 5, 6, 0.88) 0%, rgba(5, 5, 6, 0.72) 35%, rgba(5, 5, 6, 0.35) 60%, rgba(5, 5, 6, 0.0) 100%);
+  --wallpaper-scrim-vignette: linear-gradient(180deg, rgba(5, 5, 6, 0.45) 0%, rgba(5, 5, 6, 0.15) 25%, transparent 40%);
+  --wallpaper-scrim-bottom: linear-gradient(0deg, #050506 0%, rgba(5, 5, 6, 0.85) 12%, transparent 28%);
+  --wallpaper-photo-overlay: rgba(5, 5, 6, 0.12);
+  --wallpaper-grain-opacity: 0.04;
+  --wallpaper-content-text: #FFFFFF;
+  --wallpaper-content-muted: rgba(255, 255, 255, 0.74);
+  --wallpaper-content-subtle: rgba(255, 255, 255, 0.48);
+  --wallpaper-cta-bg: #FFFFFF;
+  --wallpaper-cta-text: #050506;
+  --wallpaper-cta-hover: rgba(255, 255, 255, 0.92);
+
+  --user-bubble-bg: rgba(255, 255, 255, 0.08);
+  --code-bg: rgba(255, 255, 255, 0.035);
+  --code-header-bg: rgba(255, 255, 255, 0.05);
+
+  --hljs-keyword: #FFFFFF;
+  --hljs-string: rgba(255, 255, 255, 0.80);
+  --hljs-number: #D4D4D8;
+  --hljs-comment: rgba(255, 255, 255, 0.44);
+  --hljs-title: #E4E4E7;
+
+  --status-error: #F87171;
+  --status-error-soft: rgba(248, 113, 113, 0.13);
+  --status-success: #D4D4D8;
+  --status-success-soft: rgba(255, 255, 255, 0.09);
+  --status-warning: #FBBF24;
+  --status-warning-soft: rgba(251, 191, 36, 0.12);
+
+  /* Brand Icon Swatches (avoids hardcoded hex inside React components) */
+  --swatch-1: #FFFFFF;
+  --swatch-2: #D4D4D8;
+  --swatch-3: #A1A1AA;
+  --swatch-4: #09090B;
+  --swatch-5: #E57373;
+  --swatch-6: #D4A373;
+
+  /* Typography & Design System Scales */
+  --font-sans: 'Outfit Variable', Outfit, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 15px;
+  --text-md: 16px;
+  --text-lg: 20px;
+  --text-2xl: 28px;
+  --text-hero: 40px;
+
+  /* Compatibility aliases (mapped strictly to semantic tokens) */
+  --obsidian-950: var(--bg);
+  --obsidian-900: var(--surface);
+  --obsidian-800: var(--surface-raised);
+  --glass-hover: var(--surface-hover);
+  --glass-shadow: var(--shadow);
+  --border-hairline: var(--border);
+  --border-bright: var(--border-strong);
+  --text-primary: var(--text);
+  --text-secondary: var(--text-muted);
+  --radius-panel: var(--radius-lg);
+  --radius-sidebar: var(--radius-xl);
+}
+
+[data-theme='amoled'] {
+  color-scheme: dark;
+
+  --bg: #000000;
+  --surface: #000000;
+  --surface-sidebar: #000000;
+  --surface-raised: #0B0B0B;
+  --surface-hover: rgba(255, 255, 255, 0.07);
+  --surface-active: rgba(255, 255, 255, 0.12);
+
+  --border: rgba(255, 255, 255, 0.14);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.28);
+
+  --text: #FFFFFF;
+  --text-muted: rgba(255, 255, 255, 0.64);
+  --text-subtle: rgba(255, 255, 255, 0.42);
+
+  --accent: #FFFFFF;
+  --accent-ink: #000000;
+  --accent-soft: rgba(255, 255, 255, 0.10);
+  --accent-glow: rgba(255, 255, 255, 0.18);
+
+  /* AMOLED Liquid Glass: Visible translucent white layer over pure black page */
+  --glass-fill: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+  --glass-strong: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 100%);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-highlight: rgba(255, 255, 255, 0.16);
+  --glass-solid: #0E0E10;
+  --glass-blur: 16px;
+  --glass-blur-strong: 24px;
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
+  --scrim-bg: rgba(0, 0, 0, 0.75);
+  --focus-ring: #FFFFFF;
+
+  --user-bubble-bg: rgba(255, 255, 255, 0.09);
+  --code-bg: #050505;
+  --code-header-bg: #0A0A0A;
+
+  --hljs-keyword: #FFFFFF;
+  --hljs-string: rgba(255, 255, 255, 0.82);
+  --hljs-number: #D4D4D8;
+  --hljs-comment: rgba(255, 255, 255, 0.45);
+  --hljs-title: #E4E4E7;
+
+  --status-error: #F87171;
+  --status-error-soft: rgba(248, 113, 113, 0.12);
+  --status-success: #E4E4E7;
+  --status-success-soft: rgba(255, 255, 255, 0.09);
+  --status-warning: #FBBF24;
+  --status-warning-soft: rgba(251, 191, 36, 0.12);
+
+  /* Wallpaper Scrims & Responsive Focal Points (AMOLED) */
+  --wallpaper-focal-desktop: 54% 55%;
+  --wallpaper-focal-mobile: 54% 30%;
+  --wallpaper-scrim-left: linear-gradient(90deg, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.78) 35%, rgba(0, 0, 0, 0.42) 60%, rgba(0, 0, 0, 0.0) 100%);
+  --wallpaper-scrim-vignette: linear-gradient(180deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.20) 25%, transparent 40%);
+  --wallpaper-scrim-bottom: linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0.90) 14%, transparent 30%);
+  --wallpaper-photo-overlay: rgba(0, 0, 0, 0.16);
+  --wallpaper-grain-opacity: 0;
+  --wallpaper-content-text: #FFFFFF;
+  --wallpaper-content-muted: rgba(255, 255, 255, 0.74);
+  --wallpaper-content-subtle: rgba(255, 255, 255, 0.48);
+  --wallpaper-cta-bg: #FFFFFF;
+  --wallpaper-cta-text: #000000;
+  --wallpaper-cta-hover: rgba(255, 255, 255, 0.92);
+}
+
+[data-theme='light'],
+[data-theme='frost'] {
+  color-scheme: light;
+
+  --bg: #F4F5F7;
+  --surface: #FAFAFB;
+  --surface-sidebar: #EFEFF2;
+  --surface-raised: #FFFFFF;
+  --surface-hover: rgba(9, 9, 11, 0.06);
+  --surface-active: rgba(9, 9, 11, 0.10);
+
+  --border: rgba(10, 10, 12, 0.10);
+  --border-subtle: rgba(10, 10, 12, 0.07);
+  --border-strong: rgba(10, 10, 12, 0.24);
+
+  --text: #09090B;
+  --text-muted: rgba(9, 9, 11, 0.66);
+  --text-subtle: rgba(9, 9, 11, 0.48);
+
+  --accent: #09090B;
+  --accent-ink: #FFFFFF;
+  --accent-soft: rgba(9, 9, 11, 0.08);
+  --accent-glow: rgba(9, 9, 11, 0.18);
+
+  --glass-fill: rgba(255, 255, 255, 0.72);
+  --glass-strong: rgba(255, 255, 255, 0.90);
+  --glass-border: rgba(10, 10, 12, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.85);
+  --glass-solid: #FFFFFF;
+  --glass-blur: 20px;
+  --glass-blur-strong: 26px;
+  --shadow: 0 20px 60px rgba(10, 10, 12, 0.08);
+  --shadow-sm: 0 8px 24px rgba(10, 10, 12, 0.06);
+  --scrim-bg: rgba(9, 9, 11, 0.35);
+  --focus-ring: #09090B;
+
+  --user-bubble-bg: rgba(9, 9, 11, 0.065);
+  --code-bg: rgba(9, 9, 11, 0.035);
+  --code-header-bg: rgba(9, 9, 11, 0.055);
+
+  --hljs-keyword: #09090B;
+  --hljs-string: #3F3F46;
+  --hljs-number: #52525B;
+  --hljs-comment: #71717A;
+  --hljs-title: #18181B;
+
+  --status-error: #DC2626;
+  --status-error-soft: rgba(220, 38, 38, 0.09);
+  --status-success: #27272A;
+  --status-success-soft: rgba(9, 9, 11, 0.07);
+  --status-warning: #B45309;
+  --status-warning-soft: rgba(180, 83, 9, 0.10);
+
+  /* Wallpaper Scrims & Responsive Focal Points (Frost) */
+  --wallpaper-focal-desktop: 54% 55%;
+  --wallpaper-focal-mobile: 54% 30%;
+  --wallpaper-scrim-left: linear-gradient(90deg, rgba(244, 245, 247, 0.96) 0%, rgba(244, 245, 247, 0.85) 38%, rgba(244, 245, 247, 0.38) 68%, rgba(244, 245, 247, 0.0) 100%);
+  --wallpaper-scrim-vignette: linear-gradient(180deg, rgba(244, 245, 247, 0.40) 0%, rgba(244, 245, 247, 0.12) 25%, transparent 40%);
+  --wallpaper-scrim-bottom: linear-gradient(0deg, #F4F5F7 0%, rgba(244, 245, 247, 0.90) 14%, transparent 28%);
+  --wallpaper-photo-overlay: rgba(255, 255, 255, 0.04);
+  --wallpaper-grain-opacity: 0.025;
+  --wallpaper-content-text: #09090B;
+  --wallpaper-content-muted: rgba(9, 9, 11, 0.72);
+  --wallpaper-content-subtle: rgba(9, 9, 11, 0.50);
+  --wallpaper-cta-bg: #09090B;
+  --wallpaper-cta-text: #FFFFFF;
+  --wallpaper-cta-hover: #18181B;
+}
+
+@media (prefers-contrast: more) {
+  :root,
+  [data-theme='dark'],
+  [data-theme='obsidian'],
+  [data-theme='amoled'] {
+    --wallpaper-photo-overlay: rgba(0, 0, 0, 0.32);
+    --wallpaper-scrim-left: linear-gradient(90deg, rgba(0, 0, 0, 0.96) 0%, rgba(0, 0, 0, 0.88) 45%, rgba(0, 0, 0, 0.55) 75%, rgba(0, 0, 0, 0.0) 100%);
+  }
+  [data-theme='light'],
+  [data-theme='frost'] {
+    --wallpaper-photo-overlay: rgba(255, 255, 255, 0.20);
+    --wallpaper-scrim-left: linear-gradient(90deg, rgba(244, 245, 247, 0.98) 0%, rgba(244, 245, 247, 0.92) 45%, rgba(244, 245, 247, 0.60) 75%, rgba(244, 245, 247, 0.0) 100%);
+  }
+}

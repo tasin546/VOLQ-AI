@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" data-theme="obsidian">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#050506" />
+    <title>VOLQ AI</title>
+    <script>
+      (function () {
+        try {
+          var theme = localStorage.getItem('volq_theme') || 'dark';
+          var darkStyle = localStorage.getItem('volq_dark_style') || 'dark';
+          var sysLight =
+            window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+          var resolved =
+            theme === 'system'
+              ? sysLight
+                ? 'frost'
+                : darkStyle === 'amoled'
+                  ? 'amoled'
+                  : 'obsidian'
+              : theme === 'light'
+                ? 'frost'
+                : theme === 'amoled'
+                  ? 'amoled'
+                  : 'obsidian';
+
+          var root = document.documentElement;
+          root.setAttribute('data-theme', resolved);
+
+          var reduceTx = localStorage.getItem('volq_reduce_transparency');
+          if (reduceTx === 'true' || reduceTx === 'false') {
+            root.setAttribute('data-reduce-transparency', reduceTx);
+          } else if (
+            window.matchMedia &&
+            window.matchMedia('(prefers-reduced-transparency: reduce)').matches
+          ) {
+            root.setAttribute('data-reduce-transparency', 'true');
+          }
+
+          var reduceMotion = localStorage.getItem('volq_reduce_motion');
+          if (reduceMotion === 'true' || reduceMotion === 'false') {
+            root.setAttribute('data-reduce-motion', reduceMotion);
+          } else if (
+            window.matchMedia &&
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          ) {
+            root.setAttribute('data-reduce-motion', 'true');
+          }
+
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) {
+            meta.setAttribute(
+              'content',
+              resolved === 'amoled' ? '#000000' : resolved === 'frost' ? '#F4F5F7' : '#050506'
+            );
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="manifest" href="/manifest.webmanifest" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

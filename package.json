@@ -1,0 +1,28 @@
+{
+  "name": "volq-ai",
+  "version": "1.0.0",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "workspaces": [
+    "apps/server",
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/server & npm run dev --workspace=apps/web",
+    "build": "npm run assets:bg && npm run build --workspace=apps/server && npm run build --workspace=apps/web",
+    "typecheck": "npm run typecheck --workspace=apps/server && npm run typecheck --workspace=apps/web",
+    "lint": "npm run lint --workspace=apps/server && npm run lint --workspace=apps/web",
+    "test": "npm run test --workspace=apps/server && npm run test --workspace=apps/web",
+    "assets:bg": "node scripts/generate-wallpaper.mjs",
+    "setup:env": "node scripts/setup-env.mjs",
+    "release:check": "node scripts/release-check.mjs",
+    "db:migrate-sqlite-to-postgres": "npm run db:migrate-sqlite-to-postgres --workspace=apps/server"
+  },
+  "allowScripts": {
+    "argon2@0.41.1": true,
+    "esbuild@0.28.2": true,
+    "better-sqlite3@13.1.1": true
+  }
+}

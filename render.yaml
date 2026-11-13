@@ -1,0 +1,38 @@
+databases:
+  - name: volq-ai-db
+    databaseName: volq
+    user: volq
+
+services:
+  - type: web
+    name: volq-ai
+    runtime: node
+    plan: starter
+    buildCommand: npm install && npm run build
+    startCommand: node apps/server/dist/index.js
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: SERVE_WEB_DIST
+        value: "true"
+      - key: TRUST_PROXY
+        value: "true"
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: APP_BASE_URL
+        sync: false
+      - key: DATABASE_SSL
+        value: "true"
+      - key: MAX_UPLOAD_MB
+        value: "25"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: volq-ai-db
+          property: connectionString
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: ENCRYPTION_KEY
+        generateValue: true

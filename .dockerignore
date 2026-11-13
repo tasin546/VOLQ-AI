@@ -1,0 +1,36 @@
+# Git & Version Control
+.git/
+.gitignore
+
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+.dev-secrets.json
+
+# Local Data & SQLite Databases
+data/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+.verify-data/
+.demo-data/
+temp-clean-check/
+
+# Dependencies & Build Outputs
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+*.tsbuildinfo
+
+# Logs & Diagnostics
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS Artifacts
+.DS_Store
+Thumbs.db

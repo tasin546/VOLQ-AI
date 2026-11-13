@@ -1,0 +1,73 @@
+services:
+  volq-server:
+    build:
+      context: .
+      dockerfile: apps/server/Dockerfile
+    image: volq-ai-server:latest
+    container_name: volq-ai-server
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: ${PORT:-3001}
+      HOST: 0.0.0.0
+      DATABASE_PATH: /data/volq.db
+      DATABASE_URL: ${DATABASE_URL:-}
+      DATABASE_SSL: ${DATABASE_SSL:-false}
+      SESSION_SECRET: ${SESSION_SECRET:?Set SESSION_SECRET in .env}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:?Set ENCRYPTION_KEY in .env}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      TRUST_PROXY: ${TRUST_PROXY:-false}
+      SERVE_WEB_DIST: "false"
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-25}
+      APP_ORIGIN: ${APP_ORIGIN:-http://localhost:3000}
+      DEFAULT_OLLAMA_URL: ${DEFAULT_OLLAMA_URL:-http://localhost:11434}
+    volumes:
+      - volq_data:/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  volq-web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    image: volq-ai-web:latest
+    container_name: volq-ai-web
+    restart: unless-stopped
+    depends_on:
+      - volq-server
+    ports:
+      - "3000:80"
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: volq-ai-postgres
+    profiles: ["postgres"]
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-volq}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-volq}
+      POSTGRES_DB: ${POSTGRES_DB:-volq}
+    volumes:
+      - volq_pgdata:/var/lib/postgresql/data
+    # ports:
+    #   - "127.0.0.1:5432:5432" # Optional: uncomment if local DB inspection tools need access
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-volq} -d ${POSTGRES_DB:-volq}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Optional local Ollama service: uncomment to run Ollama alongside VOLQ AI
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   container_name: volq-ai-ollama
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ollama_data:/root/.ollama
+  #   ports:
+  #     - "11434:11434"
+
+volumes:
+  volq_data:
+  volq_pgdata:
+  # ollama_data:
