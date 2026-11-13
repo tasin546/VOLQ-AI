@@ -100,7 +100,7 @@ const updateModelSchema = z.object({
 });
 
 const bulkModelSchema = z.object({
-  ids: z.array(z.string().min(1).max(100)).min(1).max(200),
+  ids: z.array(z.string().min(1).max(250)).min(1).max(10000),
   action: z.enum(['hide', 'show', 'make_public', 'make_private', 'delete', 'restore']),
 });
 
@@ -704,6 +704,7 @@ export function registerAdminRoutes(
     { preHandler: [authenticate, requireAdmin, verifyCsrf] },
     async (req) => {
       const body = bulkModelSchema.parse(req.body);
+      const uniqueIds = Array.from(new Set(body.ids));
       const now = new Date().toISOString();
 
       const patch: Partial<{
@@ -720,13 +721,17 @@ export function registerAdminRoutes(
       if (body.action === 'delete') patch.is_deleted = 1;
       if (body.action === 'restore') patch.is_deleted = 0;
 
-      await db
-        .updateTable('models_metadata')
-        .set(patch)
-        .where('id', 'in', body.ids)
-        .execute();
+      const chunkSize = 250;
+      for (let i = 0; i < uniqueIds.length; i += chunkSize) {
+        const chunk = uniqueIds.slice(i, i + chunkSize);
+        await db
+          .updateTable('models_metadata')
+          .set(patch)
+          .where('id', 'in', chunk)
+          .execute();
+      }
 
-      return { ok: true };
+      return { ok: true, count: uniqueIds.length };
     }
   );
 

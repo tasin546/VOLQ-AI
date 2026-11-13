@@ -3,6 +3,7 @@ import {
   ArrowLeft,
   Eye,
   EyeOff,
+  Loader2,
   Lock,
   Pencil,
   RefreshCw,
@@ -31,6 +32,7 @@ export const ModelsSettingsSection: React.FC = () => {
   const [visibilityFilter, setVisibilityFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('active_or_hidden');
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [isBulkRunning, setIsBulkRunning] = useState(false);
 
   // In-pane sub-view state (zero nested drawers!)
   const [editingModel, setEditingModel] = useState<AdminModelItem | null>(null);
@@ -107,27 +109,39 @@ export const ModelsSettingsSection: React.FC = () => {
   };
 
   const runSinglePatch = async (id: string, patch: Record<string, unknown>, msg: string) => {
-    await apiFetch(`/api/admin/models/${id}`, {
-      method: 'PATCH',
-      body: JSON.stringify(patch),
-    });
-    await loadData();
-    await loadInitialData();
-    pushToast(msg);
+    try {
+      await apiFetch(`/api/admin/models/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(patch),
+      });
+      await loadData();
+      await loadInitialData();
+      pushToast(msg);
+    } catch (err) {
+      pushToast(err instanceof Error ? err.message : 'Action failed', 'error');
+    }
   };
 
   const runBulk = async (
     action: 'hide' | 'show' | 'make_public' | 'make_private' | 'delete' | 'restore'
   ) => {
-    if (selectedIds.size === 0) return;
-    await apiFetch('/api/admin/models/bulk', {
-      method: 'POST',
-      body: JSON.stringify({ ids: Array.from(selectedIds), action }),
-    });
-    setSelectedIds(new Set());
-    await loadData();
-    await loadInitialData();
-    pushToast(`Updated ${selectedIds.size} model(s)`);
+    if (selectedIds.size === 0 || isBulkRunning) return;
+    setIsBulkRunning(true);
+    const count = selectedIds.size;
+    try {
+      await apiFetch('/api/admin/models/bulk', {
+        method: 'POST',
+        body: JSON.stringify({ ids: Array.from(selectedIds), action }),
+      });
+      setSelectedIds(new Set());
+      await loadData();
+      await loadInitialData();
+      pushToast(`Updated ${count} model(s)`);
+    } catch (err) {
+      pushToast(err instanceof Error ? err.message : 'Bulk action failed', 'error');
+    } finally {
+      setIsBulkRunning(false);
+    }
   };
 
   const handleRefreshAll = async () => {
@@ -417,24 +431,60 @@ export const ModelsSettingsSection: React.FC = () => {
             )}
           </div>
           <div className="flex flex-wrap gap-1.5">
-            <Button size="sm" variant="secondary" onClick={() => void runBulk('show')}>
+            <Button
+              size="sm"
+              variant="secondary"
+              disabled={isBulkRunning}
+              onClick={() => void runBulk('show')}
+            >
+              {isBulkRunning ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : null}
               Show
             </Button>
-            <Button size="sm" variant="secondary" onClick={() => void runBulk('hide')}>
+            <Button
+              size="sm"
+              variant="secondary"
+              disabled={isBulkRunning}
+              onClick={() => void runBulk('hide')}
+            >
+              {isBulkRunning ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : null}
               Hide
             </Button>
-            <Button size="sm" variant="secondary" onClick={() => void runBulk('make_public')}>
+            <Button
+              size="sm"
+              variant="secondary"
+              disabled={isBulkRunning}
+              onClick={() => void runBulk('make_public')}
+            >
+              {isBulkRunning ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : null}
               Make public
             </Button>
-            <Button size="sm" variant="secondary" onClick={() => void runBulk('make_private')}>
+            <Button
+              size="sm"
+              variant="secondary"
+              disabled={isBulkRunning}
+              onClick={() => void runBulk('make_private')}
+            >
+              {isBulkRunning ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : null}
               Make private
             </Button>
             {statusFilter === 'deleted' ? (
-              <Button size="sm" variant="secondary" onClick={() => void runBulk('restore')}>
+              <Button
+                size="sm"
+                variant="secondary"
+                disabled={isBulkRunning}
+                onClick={() => void runBulk('restore')}
+              >
+                {isBulkRunning ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : null}
                 Restore
               </Button>
             ) : (
-              <Button size="sm" variant="destructive" onClick={() => void runBulk('delete')}>
+              <Button
+                size="sm"
+                variant="destructive"
+                disabled={isBulkRunning}
+                onClick={() => void runBulk('delete')}
+              >
+                {isBulkRunning ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : null}
                 Delete
               </Button>
             )}

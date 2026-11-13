@@ -239,6 +239,25 @@ describe('admin model management and server-side visibility enforcement', () => 
       payload: { ids: [publicMeta.id], action: 'restore' },
     });
 
+    // Bulk action on >200 models (chunks across batches without hitting limit)
+    const largeBatchIds = Array.from({ length: 250 }, (_, i) => `large-batch-model-${i}`);
+    const bulkLarge = await app.inject({
+      method: 'POST',
+      url: '/api/admin/models/bulk',
+      headers: { cookie: adminCookie, 'x-csrf-token': adminCsrf },
+      payload: { ids: [publicMeta.id, ...largeBatchIds], action: 'make_private' },
+    });
+    expect(bulkLarge.statusCode).toBe(200);
+    expect(bulkLarge.json().ok).toBe(true);
+    expect(bulkLarge.json().count).toBe(251);
+
+    const updatedMeta = await dbCtx.db
+      .selectFrom('models_metadata')
+      .select(['visibility'])
+      .where('id', '=', publicMeta.id)
+      .executeTakeFirstOrThrow();
+    expect(updatedMeta.visibility).toBe('private');
+
     await app.close();
     await dbCtx.close();
   });
