@@ -31,55 +31,55 @@ export interface WallpaperManifest {
 }
 
 export const WALLPAPER_MANIFEST: WallpaperManifest = {
-  hash: '3793d6a2',
+  hash: '1d55c9d3',
   originalWidth: 1920,
   originalHeight: 1280,
   aspectRatio: 1.500,
   focalPointDesktop: '54% 55%',
   focalPointMobile: '54% 30%',
   placeholderBase64: 'data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADwAwCdASoYABAAPzmGvFQvKSYjMAgB4CcJYgCdACHe6wveY03sziKAAPx7G+KcvXaK9Zv8aLlwIZRzIVqM7W5WGRF0gAAA',
-  defaultSrc: '/assets/wallpaper/bg-1920-3793d6a2.webp',
+  defaultSrc: '/assets/wallpaper/bg-1920-1d55c9d3.webp',
   sizes: '(max-width: 640px) 640px, (max-width: 1024px) 960px, 1920px',
   srcset: {
-    avif: '/assets/wallpaper/bg-640-3793d6a2.avif 640w, /assets/wallpaper/bg-960-3793d6a2.avif 960w, /assets/wallpaper/bg-1920-3793d6a2.avif 1920w',
-    webp: '/assets/wallpaper/bg-640-3793d6a2.webp 640w, /assets/wallpaper/bg-960-3793d6a2.webp 960w, /assets/wallpaper/bg-1920-3793d6a2.webp 1920w',
-    jpg: '/assets/wallpaper/bg-640-3793d6a2.jpg 640w, /assets/wallpaper/bg-960-3793d6a2.jpg 960w, /assets/wallpaper/bg-1920-3793d6a2.jpg 1920w',
+    avif: '/assets/wallpaper/bg-640-1d55c9d3.avif 640w, /assets/wallpaper/bg-960-1d55c9d3.avif 960w, /assets/wallpaper/bg-1920-1d55c9d3.avif 1920w',
+    webp: '/assets/wallpaper/bg-640-1d55c9d3.webp 640w, /assets/wallpaper/bg-960-1d55c9d3.webp 960w, /assets/wallpaper/bg-1920-1d55c9d3.webp 1920w',
+    jpg: '/assets/wallpaper/bg-640-1d55c9d3.jpg 640w, /assets/wallpaper/bg-960-1d55c9d3.jpg 960w, /assets/wallpaper/bg-1920-1d55c9d3.jpg 1920w',
   },
   variants: [
   {
     "width": 640,
     "height": 427,
-    "avifUrl": "/assets/wallpaper/bg-640-3793d6a2.avif",
-    "webpUrl": "/assets/wallpaper/bg-640-3793d6a2.webp",
-    "jpgUrl": "/assets/wallpaper/bg-640-3793d6a2.jpg",
+    "avifUrl": "/assets/wallpaper/bg-640-1d55c9d3.avif",
+    "webpUrl": "/assets/wallpaper/bg-640-1d55c9d3.webp",
+    "jpgUrl": "/assets/wallpaper/bg-640-1d55c9d3.jpg",
     "sizeBytes": {
-      "avif": 27092,
-      "webp": 23144,
-      "jpg": 35596
+      "avif": 27399,
+      "webp": 23058,
+      "jpg": 35961
     }
   },
   {
     "width": 960,
     "height": 640,
-    "avifUrl": "/assets/wallpaper/bg-960-3793d6a2.avif",
-    "webpUrl": "/assets/wallpaper/bg-960-3793d6a2.webp",
-    "jpgUrl": "/assets/wallpaper/bg-960-3793d6a2.jpg",
+    "avifUrl": "/assets/wallpaper/bg-960-1d55c9d3.avif",
+    "webpUrl": "/assets/wallpaper/bg-960-1d55c9d3.webp",
+    "jpgUrl": "/assets/wallpaper/bg-960-1d55c9d3.jpg",
     "sizeBytes": {
-      "avif": 57242,
-      "webp": 48510,
-      "jpg": 75209
+      "avif": 59467,
+      "webp": 48238,
+      "jpg": 77774
     }
   },
   {
     "width": 1920,
     "height": 1280,
-    "avifUrl": "/assets/wallpaper/bg-1920-3793d6a2.avif",
-    "webpUrl": "/assets/wallpaper/bg-1920-3793d6a2.webp",
-    "jpgUrl": "/assets/wallpaper/bg-1920-3793d6a2.jpg",
+    "avifUrl": "/assets/wallpaper/bg-1920-1d55c9d3.avif",
+    "webpUrl": "/assets/wallpaper/bg-1920-1d55c9d3.webp",
+    "jpgUrl": "/assets/wallpaper/bg-1920-1d55c9d3.jpg",
     "sizeBytes": {
-      "avif": 202239,
-      "webp": 168530,
-      "jpg": 314327
+      "avif": 243972,
+      "webp": 202752,
+      "jpg": 301568
     }
   }
 ],
